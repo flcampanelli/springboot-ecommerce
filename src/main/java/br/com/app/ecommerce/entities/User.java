@@ -1,5 +1,6 @@
 package br.com.app.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore // ignore field from JSON serialization, to avoid infinity loop
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
 
