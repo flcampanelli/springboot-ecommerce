@@ -1,5 +1,6 @@
 package br.com.app.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,9 +17,10 @@ public class Category implements Serializable {
     private Integer id;
     private String name;
 
-    // A collection that contains no duplicate elements
-    @Transient
-    private Set<Product> products = new HashSet<>();
+
+    @JsonIgnore // ignore field from JSON serialization, to avoid infinity loop
+    @ManyToMany(mappedBy = "categories") // Product attribute
+    private Set<Product> products = new HashSet<>(); // A collection that contains no duplicate elements
 
     public Category() {
     }

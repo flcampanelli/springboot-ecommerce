@@ -20,7 +20,12 @@ public class Product implements Serializable {
     private String imageUrl;
 
     // A collection that contains no duplicate elements
-    @Transient
+    @ManyToMany
+    @JoinTable(
+            name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
