@@ -62,5 +62,10 @@ public class TestConfig implements CommandLineRunner {
         OrderItem thirdOrderItem = new OrderItem(secondOrder, macbookProProduct, 2, macbookProProduct.getPrice());
         OrderItem fourthOrderItem = new OrderItem(thirdOrder, railsForDummiesProduct, 2, railsForDummiesProduct.getPrice());
         orderItemRepository.saveAll(Arrays.asList(firstOrderItem, secondOrderItem, thirdOrderItem, fourthOrderItem));
+
+        Payment firstPayment = new Payment(null, Instant.parse("2024-03-20T21:53:07Z"), firstOrder);
+        // saving dependent object in a one-to-one relation
+        firstOrder.setPayment(firstPayment);
+        orderRepository.save(firstOrder);
     }
 }
