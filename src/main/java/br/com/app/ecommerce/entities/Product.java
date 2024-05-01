@@ -22,7 +22,7 @@ public class Product implements Serializable {
     // A collection that contains no duplicate elements
     @ManyToMany
     @JoinTable(
-            name = "product_category",
+            name = "products_categories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )

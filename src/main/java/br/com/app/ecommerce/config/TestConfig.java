@@ -1,14 +1,8 @@
 package br.com.app.ecommerce.config;
 
-import br.com.app.ecommerce.entities.Category;
-import br.com.app.ecommerce.entities.Order;
-import br.com.app.ecommerce.entities.Product;
-import br.com.app.ecommerce.entities.User;
+import br.com.app.ecommerce.entities.*;
 import br.com.app.ecommerce.entities.enums.OrderStatus;
-import br.com.app.ecommerce.repositories.CategoryRepository;
-import br.com.app.ecommerce.repositories.OrderRepository;
-import br.com.app.ecommerce.repositories.ProductRepository;
-import br.com.app.ecommerce.repositories.UserRepository;
+import br.com.app.ecommerce.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +23,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -60,5 +56,11 @@ public class TestConfig implements CommandLineRunner {
         Order secondOrder = new Order(null, Instant.parse("2024-04-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT, luisGuilhermeUser);
         Order thirdOrder = new Order(null, Instant.parse("2024-04-27T15:21:22Z"), OrderStatus.WAITING_PAYMENT, endrickUser);
         orderRepository.saveAll(Arrays.asList(firstOrder, secondOrder, thirdOrder));
+
+        OrderItem firstOrderItem = new OrderItem(firstOrder, lordOfTheRingsProduct, 2, lordOfTheRingsProduct.getPrice());
+        OrderItem secondOrderItem = new OrderItem(firstOrder, macbookProProduct, 1, macbookProProduct.getPrice());
+        OrderItem thirdOrderItem = new OrderItem(secondOrder, macbookProProduct, 2, macbookProProduct.getPrice());
+        OrderItem fourthOrderItem = new OrderItem(thirdOrder, railsForDummiesProduct, 2, railsForDummiesProduct.getPrice());
+        orderItemRepository.saveAll(Arrays.asList(firstOrderItem, secondOrderItem, thirdOrderItem, fourthOrderItem));
     }
 }

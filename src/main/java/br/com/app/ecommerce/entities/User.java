@@ -21,7 +21,7 @@ public class User implements Serializable {
     private String password;
 
     @JsonIgnore // ignore field from JSON serialization, to avoid infinity loop
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer") // one user has multiple orders, so OneToMany
     private List<Order> orders = new ArrayList<>();
 
     public User() {
