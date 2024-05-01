@@ -31,7 +31,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "customer_id")
     private User customer;
 
-    @OneToMany(mappedBy = "id.order")
+    @OneToMany(mappedBy = "id.order") // OrderItem "id" that has OrderItemPK "order"
     private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
