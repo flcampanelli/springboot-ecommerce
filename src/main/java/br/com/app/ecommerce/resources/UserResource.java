@@ -19,7 +19,7 @@ public class UserResource {
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
         List<User> users = userService.findAll();
-        return ResponseEntity.ok().body(users);
+        return ResponseEntity.ok().body(users); // http status code 200 OK
     }
 
     @GetMapping(value = "/{id}")
@@ -43,5 +43,11 @@ public class UserResource {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build(); // http status code 204 No Content
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+        user = userService.update(id, user);
+        return ResponseEntity.ok().body(user);
     }
 }
